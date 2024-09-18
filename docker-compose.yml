@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  go-mqtt:
+    build:
+      context: ./go-mqtt
+    expose:
+      - "1883"
+      - "1884"
+
+  nginx-server:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "1883:1883"
+    depends_on:
+      - go-mqtt
